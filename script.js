@@ -347,10 +347,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function registrarPWA() {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
+
+    navigator.serviceWorker
         .register("./service-worker.js")
-        .then(() => console.log("PWA ativo"))
-        .catch((erro) => console.log(erro));
-    }
+        .then(() => {
+
+            console.log("PWA ativo");
+
+        });
+
+}
   }
 });
