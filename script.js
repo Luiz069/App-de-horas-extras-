@@ -136,21 +136,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===============================
 
   function salvarRegistro() {
-    if (!data.value) {
+    console.log("Botão salvar clicado");
+
+    if (!data || !data.value) {
       alert("Informe a data");
-
       return;
     }
 
-    if (!horas.value) {
+    if (!horas || !horas.value) {
       alert("Informe as horas");
-
       return;
     }
 
-    if (!valorHora.value) {
+    if (!valorHora || !valorHora.value) {
       alert("Informe o valor da hora");
-
       return;
     }
 
@@ -163,12 +162,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       valor: Number(horas.value) * Number(valorHora.value),
 
-      obs: obs.value || "",
+      obs: obs ? obs.value : "",
     };
 
     registros.push(registro);
 
-    salvarLocal();
+    localStorage.setItem("horasExtras", JSON.stringify(registros));
+
+    console.log("Salvo:", registro);
+
+    alert("Registro salvo!");
 
     limparFormulario();
 
