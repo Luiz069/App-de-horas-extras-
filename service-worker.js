@@ -1,59 +1,78 @@
-// ===============================
-// Service Worker
-// Controle de Horas Extras
-// ===============================
+const CACHE_NAME = "horas-extras-v2";
 
-const CACHE = "horas-extras-v1";
-
-const ARQUIVOS = [
+const FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./script.js",
-  "./manifest.json",
+  "./manifest.json"
 ];
 
-self.addEventListener("install", (evento) => {
-  evento.waitUntil(
-    caches.open(CACHE).then((cache) => {
-      return cache.addAll(ARQUIVOS);
-    }),
+// Instala
+self.addEventListener("install", (event) => {
+
+  self.skipWaiting();
+
+  event.waitUntil(
+
+    caches.open(CACHE_NAME)
+
+      .then(cache => cache.addAll(FILES))
+
   );
+
 });
 
-self.addEventListener("fetch", (evento) => {
-  evento.respondWith(
-    caches.match(evento.request).then((resposta) => {
-      return resposta || fetch(evento.request);
-    }),
+
+// Ativa
+self.addEventListener("activate", (event) => {
+
+  event.waitUntil(
+
+    caches.keys()
+
+      .then(keys =>
+
+        Promise.all(
+
+          keys
+
+            .filter(key => key !== CACHE_NAME)
+
+            .map(key => caches.delete(key))
+
+        )
+
+      )
+
+      .then(() => self.clients.claim())
+
   );
+
 });
 
-// Busca arquivos do cache primeiro
+
+// Busca
 self.addEventListener("fetch", (event) => {
+
   event.respondWith(
-    caches
-      .match(event.request)
 
-      .then((response) => {
-        return response || fetch(event.request);
-      }),
-  );
-});
+    fetch(event.request)
 
-// ===============================
-// Registrar Service Worker
-// ===============================
+      .then(response => {
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("service-worker.js")
-      .then(() => {
-        console.log("Service Worker registrado com sucesso.");
+        const copia = response.clone();
+
+        caches.open(CACHE_NAME)
+
+          .then(cache => cache.put(event.request, copia));
+
+        return response;
+
       })
-      .catch((erro) => {
-        console.log("Erro ao registrar:", erro);
-      });
-  });
-}
+
+      .catch(() => caches.match(event.request))
+
+  );
+
+});
