@@ -457,6 +457,39 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// ===============================
+// INSTALAÇÃO DO APLICATIVO
+// ===============================
+
+let instalarPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+
+  instalarPrompt = e;
+
+  console.log("Aplicativo disponível para instalar");
+});
+
+function instalarAplicativo() {
+  if (!instalarPrompt) {
+    alert("Abra pelo Chrome e aguarde a opção de instalação aparecer.");
+
+    return;
+  }
+
+  instalarPrompt.prompt();
+
+  instalarPrompt.userChoice.then((resultado) => {
+    if (resultado.outcome === "accepted") {
+      console.log("Aplicativo instalado");
+    }
+
+    instalarPrompt = null;
+  });
+}
+// =====================================================
+
 console.log("Script carregado");
 
 console.log("Excel:", typeof XLSX);
