@@ -1,357 +1,364 @@
 /* ========= RESET ========= */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-    background:#eef2f7;
-    color:#222;
-    transition:.3s;
+body {
+    background: url(assets/fundo-site.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    /* background:#eef2f7; */
+    color: #222;
+    transition: .3s;
 }
 
-body.dark{
-    background:#111827;
-    color:#fff;
+body.dark {
+    background: #111827;
+    color: #fff;
 }
 
 /* ========= HEADER ========= */
 
-header{
-    background:#2563eb;
-    color:#fff;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+header {
+    /* background: #2563eb; */
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: 0 5px 15px rgba(0, 0, 0, .2); */
 }
 
-header h1{
-    font-size:28px;
+header h1 {
+    font-size: 28px;
 }
 
-header button{
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:20px;
-    background:#fff;
-    color:#2563eb;
-    transition:.3s;
+header button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    background: #fff;
+    color: #2563eb;
+    transition: .3s;
 }
 
-header button:hover{
-    transform:rotate(20deg);
+header button:hover {
+    transform: rotate(20deg);
 }
 
 /* ========= CARDS ========= */
 
-.cards{
-    width:95%;
-    margin:25px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+.cards {
+    width: 95%;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.card{
-    background:#fff;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-    transition:.3s;
+.card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+    transition: .3s;
 }
 
-.card:hover{
-    transform:translateY(-6px);
+.card:hover {
+    transform: translateY(-6px);
 }
 
-.dark .card{
-    background:#1f2937;
+.dark .card {
+    background: #1f2937;
 }
 
-.card h2{
-    font-size:17px;
-    color:#666;
-    margin-bottom:10px;
+.card h2 {
+    font-size: 17px;
+    color: #666;
+    margin-bottom: 10px;
 }
 
-.dark .card h2{
-    color:#bbb;
+.dark .card h2 {
+    color: #bbb;
 }
 
-.card h1{
-    font-size:32px;
-    color:#2563eb;
+.card h1 {
+    font-size: 32px;
+    /* color: #2563eb; */
 }
 
-.card input{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-size:17px;
+.card input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 17px;
 }
 
 /* ========= FORM ========= */
 
-.cadastro{
-    width:95%;
-    max-width:700px;
-    margin:20px auto;
-    background:#fff;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+.cadastro {
+    width: 95%;
+    max-width: 700px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
 }
 
-.dark .cadastro{
-    background:#1f2937;
+.dark .cadastro {
+    background: #1f2937;
 }
 
-.cadastro h2{
-    margin-bottom:20px;
+.cadastro h2 {
+    margin-bottom: 20px;
 }
 
-.cadastro label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:8px;
-    font-weight:bold;
+.cadastro label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
 .cadastro input,
-.cadastro textarea{
-    width:100%;
-    padding:14px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    font-size:16px;
+.cadastro textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
-.cadastro textarea{
-    resize:none;
-    min-height:90px;
+.cadastro textarea {
+    resize: none;
+    min-height: 90px;
 }
 
-#salvar{
-    margin-top:25px;
-    width:100%;
-    padding:15px;
-    background:#16a34a;
-    color:#fff;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:18px;
-    transition:.3s;
+#salvar {
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: .3s;
 }
 
-#salvar:hover{
-    background:#15803d;
+#salvar:hover {
+    background: #15803d;
 }
 
 /* ========= HISTÓRICO ========= */
 
-.historico{
-    width:95%;
-    margin:35px auto;
-    background:#fff;
-    border-radius:15px;
-    padding:20px;
-    overflow:auto;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+.historico {
+    width: 95%;
+    margin: 35px auto;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    overflow: auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
 }
 
-.dark .historico{
-    background:#1f2937;
+.dark .historico {
+    background: #1f2937;
 }
 
-.topo{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-    gap:15px;
-    flex-wrap:wrap;
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-#pesquisa{
-    padding:12px;
-    width:280px;
-    border-radius:8px;
-    border:1px solid #ccc;
+#pesquisa {
+    padding: 12px;
+    width: 280px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-thead{
-    background:#2563eb;
-    color:#fff;
+thead {
+    background: #2563eb;
+    color: #fff;
 }
 
-th,td{
-    padding:15px;
-    text-align:center;
+th,
+td {
+    padding: 15px;
+    text-align: center;
 }
 
-tbody tr{
-    border-bottom:1px solid #ddd;
+tbody tr {
+    border-bottom: 1px solid #ddd;
 }
 
-tbody tr:hover{
-    background:#f3f4f6;
+tbody tr:hover {
+    background: #f3f4f6;
 }
 
-.dark tbody tr:hover{
-    background:#374151;
+.dark tbody tr:hover {
+    background: #374151;
 }
 
 /* ========= BOTÕES DA TABELA ========= */
 
-.editar{
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-right:5px;
+.editar {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 5px;
 }
 
-.excluir{
-    background:#dc2626;
-    color:#fff;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    cursor:pointer;
+.excluir {
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 /* ========= GRÁFICO ========= */
 
-.graficos{
-    width:95%;
-    margin:30px auto;
-    background:#fff;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+.graficos {
+    width: 95%;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
 }
 
-.dark .graficos{
-    background:#1f2937;
+.dark .graficos {
+    background: #1f2937;
 }
 
-#grafico{
-    width:100%;
-    height:350px;
+#grafico {
+    width: 100%;
+    height: 350px;
 }
 
 /* ========= AÇÕES ========= */
 
-.acoes{
-    width:95%;
-    margin:25px auto 40px;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:15px;
+.acoes {
+    width: 95%;
+    margin: 25px auto 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.acoes button{
-    border:none;
-    cursor:pointer;
-    padding:14px 22px;
-    border-radius:10px;
-    color:#fff;
-    font-size:16px;
-    transition:.3s;
+.acoes button {
+    border: none;
+    cursor: pointer;
+    padding: 14px 22px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transition: .3s;
 }
 
-#excel{
-    background:#16a34a;
+#excel {
+    background: #16a34a;
 }
 
-#pdf{
-    background:#dc2626;
+#pdf {
+    background: #dc2626;
 }
 
-#backup{
-    background:#2563eb;
+#backup {
+    background: #2563eb;
 }
 
-#restaurar{
-    background:#9333ea;
+#restaurar {
+    background: #9333ea;
 }
 
-.acoes button:hover{
-    transform:scale(1.05);
+.acoes button:hover {
+    transform: scale(1.05);
 }
 
 /* ========= INPUTS ========= */
 
 input,
-textarea{
-    outline:none;
-    transition:.3s;
+textarea {
+    outline: none;
+    transition: .3s;
 }
 
 input:focus,
-textarea:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 8px rgba(37,99,235,.3);
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37, 99, 235, .3);
 }
 
 /* ========= RESPONSIVO ========= */
 
-@media(max-width:768px){
+@media(max-width:768px) {
 
-header h1{
-    font-size:22px;
-}
+    header h1 {
+        font-size: 22px;
+    }
 
-.cards{
-    grid-template-columns:1fr;
-}
+    .cards {
+        grid-template-columns: 1fr;
+    }
 
-.card h1{
-    font-size:28px;
-}
+    .card h1 {
+        font-size: 28px;
+    }
 
-.topo{
-    flex-direction:column;
-    align-items:stretch;
-}
+    .topo {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-#pesquisa{
-    width:100%;
-}
+    #pesquisa {
+        width: 100%;
+    }
 
-table{
-    font-size:14px;
-}
+    table {
+        font-size: 14px;
+    }
 
-th,
-td{
-    padding:10px;
-}
+    th,
+    td {
+        padding: 10px;
+    }
 
-.acoes{
-    flex-direction:column;
-}
+    .acoes {
+        flex-direction: column;
+    }
 
-.acoes button{
-    width:100%;
-}
+    .acoes button {
+        width: 100%;
+    }
 
 }
