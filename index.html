@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
     <title>Controle de Horas Extras</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="manifest" href="manifest.json">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -17,169 +20,152 @@
 
 <body>
 
-<header>
+    <header>
 
-<h1><i class="fa-solid fa-clock"></i> Controle de Horas Extras</h1>
+        <h1><i class="fa-solid fa-clock"></i> Controle de Horas Extras</h1>
 
-<button id="tema">
-<i class="fa-solid fa-moon"></i>
-</button>
+        <button id="tema">
+            <i class="fa-solid fa-moon"></i>
+        </button>
 
-</header>
+    </header>
 
-<section class="cards">
+    <section class="cards">
 
-<div class="card">
-<h2>Total de Horas</h2>
-<h1 id="totalHoras">0h</h1>
-</div>
+        <div class="card">
+            <h2>Total de Horas</h2>
+            <h1 id="totalHoras">0h</h1>
+        </div>
 
-<div class="card">
-<h2>Total a Receber</h2>
-<h1 id="totalValor">R$ 0,00</h1>
-</div>
+        <div class="card">
+            <h2>Total a Receber</h2>
+            <h1 id="totalValor">R$ 0,00</h1>
+        </div>
 
-<div class="card">
-<h2>Dias Registrados</h2>
-<h1 id="dias">0</h1>
-</div>
+        <div class="card">
+            <h2>Dias Registrados</h2>
+            <h1 id="dias">0</h1>
+        </div>
 
-<div class="card">
-<h2>Valor Hora Extra</h2>
+        <div class="card">
+            <h2>Valor Hora Extra</h2>
 
-<input
-type="number"
-id="valorHora"
-step="0.01"
-placeholder="Ex.: 70,00">
-</div>
+            <input type="number" id="valorHora" step="0.01" placeholder="Ex.: 70,00">
+        </div>
 
-</section>
+    </section>
 
-<section class="cadastro">
+    <section class="cadastro">
 
-<h2>Novo Registro</h2>
+        <h2>Novo Registro</h2>
 
-<label>Data</label>
+        <label>Data</label>
 
-<input
-type="date"
-id="data">
+        <input type="date" id="data">
 
-<label>Horas Extras</label>
+        <label>Horas Extras</label>
 
-<input
-type="number"
-step="0.5"
-id="horas"
-placeholder="Ex.: 5">
+        <input type="number" step="0.5" id="horas" placeholder="Ex.: 5">
 
-<label>Observação</label>
+        <label>Observação</label>
 
-<textarea
-id="obs"
-placeholder="Opcional"></textarea>
+        <textarea id="obs" placeholder="Opcional"></textarea>
 
-<button id="salvar">
-<i class="fa-solid fa-floppy-disk"></i>
+        <button id="salvar">
+            <i class="fa-solid fa-floppy-disk"></i>
 
-Salvar Registro
+            Salvar Registro
 
-</button>
+        </button>
 
-</section>
+    </section>
 
-<section class="historico">
+    <section class="historico">
 
-<div class="topo">
+        <div class="topo">
 
-<h2>Histórico</h2>
+            <h2>Histórico</h2>
 
-<input
-type="text"
-id="pesquisa"
-placeholder="Pesquisar...">
+            <input type="text" id="pesquisa" placeholder="Pesquisar...">
 
-</div>
+        </div>
 
-<table>
+        <table>
 
-<thead>
+            <thead>
 
-<tr>
+                <tr>
 
-<th>Data</th>
+                    <th>Data</th>
 
-<th>Horas</th>
+                    <th>Horas</th>
 
-<th>Valor</th>
+                    <th>Valor</th>
 
-<th>Observação</th>
+                    <th>Observação</th>
 
-<th>Ações</th>
+                    <th>Ações</th>
 
-</tr>
+                </tr>
 
-</thead>
+            </thead>
 
-<tbody id="lista">
+            <tbody id="lista">
 
-</tbody>
+            </tbody>
 
-</table>
+        </table>
 
-</section>
+    </section>
 
-<section class="graficos">
+    <section class="graficos">
 
 
 
-</section>
+    </section>
 
-<section class="acoes">
+    <section class="acoes">
 
-<button id="excel">
-<i class="fa-solid fa-file-excel"></i>
+        <button id="excel">
+            <i class="fa-solid fa-file-excel"></i>
 
-Excel
+            Excel
 
-</button>
+        </button>
 
-<button id="pdf">
-<i class="fa-solid fa-file-pdf"></i>
+        <button id="pdf">
+            <i class="fa-solid fa-file-pdf"></i>
 
-PDF
+            PDF
 
-</button>
+        </button>
 
-<button id="backup">
-<i class="fa-solid fa-download"></i>
+        <button id="backup">
+            <i class="fa-solid fa-download"></i>
 
-Backup
+            Backup
 
-</button>
+        </button>
 
-<button id="restaurar">
-<i class="fa-solid fa-upload"></i>
+        <button id="restaurar">
+            <i class="fa-solid fa-upload"></i>
 
-Restaurar
+            Restaurar
 
-</button>
+        </button>
 
-<input
-type="file"
-id="arquivo"
-hidden>
+        <input type="file" id="arquivo" hidden>
 
-</section>
+    </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

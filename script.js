@@ -6,7 +6,6 @@ let grafico = null;
 
 let registros = JSON.parse(localStorage.getItem("horasExtras")) || [];
 
-
 const valorHora = document.getElementById("valorHora");
 const data = document.getElementById("data");
 const horas = document.getElementById("horas");
@@ -20,101 +19,80 @@ const dias = document.getElementById("dias");
 
 data.valueAsDate = new Date();
 
-if(localStorage.getItem("valorHora")){
-    valorHora.value = localStorage.getItem("valorHora");
+if (localStorage.getItem("valorHora")) {
+  valorHora.value = localStorage.getItem("valorHora");
 }
 
-valorHora.addEventListener("input", ()=>{
+valorHora.addEventListener("input", () => {
+  localStorage.setItem("valorHora", valorHora.value);
 
-    localStorage.setItem(
-        "valorHora",
-        valorHora.value
-    );
-
-    atualizarResumo();
-    renderizar();
-
+  atualizarResumo();
+  renderizar();
 });
 
-document
-.getElementById("salvar")
-.addEventListener("click", salvarRegistro);
+document.getElementById("salvar").addEventListener("click", salvarRegistro);
 
 // ===============================
 
-function salvarRegistro(){
+function salvarRegistro() {
+  if (data.value == "") {
+    alert("Informe a data");
+    return;
+  }
 
-    if(data.value==""){
-        alert("Informe a data");
-        return;
-    }
+  if (horas.value == "") {
+    alert("Informe as horas");
+    return;
+  }
 
-    if(horas.value==""){
-        alert("Informe as horas");
-        return;
-    }
+  if (valorHora.value == "") {
+    alert("Informe o valor da hora");
+    return;
+  }
 
-    if(valorHora.value==""){
-        alert("Informe o valor da hora");
-        return;
-    }
+  const registro = {
+    id: Date.now(),
 
-    const registro={
+    data: data.value,
 
-        id:Date.now(),
+    horas: Number(horas.value),
 
-        data:data.value,
+    valor: Number(horas.value) * Number(valorHora.value),
 
-        horas:Number(horas.value),
+    obs: obs.value,
+  };
 
-        valor:Number(horas.value)*
-              Number(valorHora.value),
+  registros.push(registro);
 
-        obs:obs.value
+  salvarLocal();
 
-    };
+  limparFormulario();
 
-    registros.push(registro);
-
-    salvarLocal();
-
-    limparFormulario();
-
-    renderizar();
-
+  renderizar();
 }
 
 // ===============================
 
-function salvarLocal(){
-
-    localStorage.setItem(
-        "horasExtras",
-        JSON.stringify(registros)
-    );
-
+function salvarLocal() {
+  localStorage.setItem("horasExtras", JSON.stringify(registros));
 }
 
 // ===============================
 
-function limparFormulario(){
+function limparFormulario() {
+  horas.value = "";
+  obs.value = "";
 
-    horas.value="";
-    obs.value="";
-
-    data.valueAsDate=new Date();
-
+  data.valueAsDate = new Date();
 }
 
 // ===============================
 
-function renderizar(){
+function renderizar() {
+  lista.innerHTML = "";
 
-    lista.innerHTML="";
-
-    registros.forEach((item)=>{
-
-        lista.innerHTML+=`
+  registros.forEach((item) => {
+    lista.innerHTML += `
 
         <tr>
 
@@ -149,59 +127,44 @@ function renderizar(){
         </tr>
 
         `;
+  });
 
-    });
-
-    atualizarResumo();
-    atualizarGrafico();
-
+  atualizarResumo();
+  atualizarGrafico();
 }
 
 // ===============================
 
-function atualizarResumo(){
+function atualizarResumo() {
+  let somaHoras = 0;
+  let somaValor = 0;
 
-    let somaHoras = 0;
-    let somaValor = 0;
+  registros.forEach((item) => {
+    somaHoras += item.horas;
+    somaValor += item.valor;
+  });
 
-    registros.forEach(item=>{
+  totalHoras.innerHTML = somaHoras.toFixed(1) + " h";
 
-        somaHoras += item.horas;
-        somaValor += item.valor;
+  totalValor.innerHTML = formatarMoeda(somaValor);
 
-    });
-
-    totalHoras.innerHTML =
-        somaHoras.toFixed(1)+" h";
-
-    totalValor.innerHTML =
-        formatarMoeda(somaValor);
-
-    dias.innerHTML =
-        registros.length;
-
+  dias.innerHTML = registros.length;
 }
 
 // ===============================
 
-function formatarMoeda(valor){
+function formatarMoeda(valor) {
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
 
-    return valor.toLocaleString("pt-BR",{
-
-        style:"currency",
-
-        currency:"BRL"
-
-    });
-
+    currency: "BRL",
+  });
 }
 
 // ===============================
 
-function formatarData(data){
-
-    return data.split("-").reverse().join("/");
-
+function formatarData(data) {
+  return data.split("-").reverse().join("/");
 }
 
 // ===============================
@@ -209,98 +172,69 @@ function formatarData(data){
 // Editar e Excluir
 // ===============================
 
-function excluir(id){
+function excluir(id) {
+  if (!confirm("Deseja realmente excluir este registro?")) {
+    return;
+  }
 
-    if(!confirm("Deseja realmente excluir este registro?")){
-        return;
-    }
+  registros = registros.filter((item) => item.id !== id);
 
-    registros = registros.filter(item => item.id !== id);
+  salvarLocal();
 
-    salvarLocal();
-
-    renderizar();
-
+  renderizar();
 }
 
 // ===============================
 
-function editar(id){
+function editar(id) {
+  const registro = registros.find((item) => item.id === id);
 
-    const registro = registros.find(item => item.id === id);
+  if (!registro) return;
 
-    if(!registro) return;
+  data.value = registro.data;
 
-    data.value = registro.data;
+  horas.value = registro.horas;
 
-    horas.value = registro.horas;
+  obs.value = registro.obs;
 
-    obs.value = registro.obs;
+  excluirSemPergunta(id);
 
-    excluirSemPergunta(id);
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 }
 
 // ===============================
 
-function excluirSemPergunta(id){
+function excluirSemPergunta(id) {
+  registros = registros.filter((item) => item.id !== id);
 
-    registros = registros.filter(item => item.id !== id);
-
-    salvarLocal();
-
+  salvarLocal();
 }
 
 // ===============================
 // Pesquisa
 // ===============================
 
-document
-.getElementById("pesquisa")
-.addEventListener("keyup", pesquisar);
+document.getElementById("pesquisa").addEventListener("keyup", pesquisar);
 
-function pesquisar(){
+function pesquisar() {
+  const texto = document.getElementById("pesquisa").value.toLowerCase();
 
-    const texto =
-    document
-    .getElementById("pesquisa")
-    .value
-    .toLowerCase();
+  lista.innerHTML = "";
 
-    lista.innerHTML="";
-
-    registros
-    .filter(item=>{
-
-        return (
-
-            formatarData(item.data)
-            .toLowerCase()
-            .includes(texto)
-
-            ||
-
-            String(item.horas)
-            .includes(texto)
-
-            ||
-
-            (item.obs || "")
-            .toLowerCase()
-            .includes(texto)
-
-        );
-
+  registros
+    .filter((item) => {
+      return (
+        formatarData(item.data).toLowerCase().includes(texto) ||
+        String(item.horas).includes(texto) ||
+        (item.obs || "").toLowerCase().includes(texto)
+      );
     })
 
-    .forEach(item=>{
-
-        lista.innerHTML += `
+    .forEach((item) => {
+      lista.innerHTML += `
 
         <tr>
 
@@ -335,19 +269,15 @@ function pesquisar(){
         </tr>
 
         `;
-
     });
-
 }
 
 // ===============================
 // Ordenar por data (mais recente)
 // ===============================
 
-registros.sort((a,b)=>{
-
-    return new Date(b.data) - new Date(a.data);
-
+registros.sort((a, b) => {
+  return new Date(b.data) - new Date(a.data);
 });
 
 renderizar();
@@ -360,227 +290,172 @@ renderizar();
 // Dashboard + Gráfico
 // ===============================
 
+function atualizarGrafico() {
+  const canvas = document.getElementById("grafico");
 
-function atualizarGrafico(){
+  if (!canvas) {
+    return;
+  }
 
-    const canvas = document.getElementById("grafico");
+  if (typeof Chart === "undefined") {
+    console.log("Chart.js não carregado");
+    return;
+  }
 
-    if(!canvas){
-        return;
-    }
+  if (grafico !== null) {
+    grafico.destroy();
 
-    if(typeof Chart === "undefined"){
-        console.log("Chart.js não carregado");
-        return;
-    }
+    grafico = null;
+  }
 
+  const labels = registros.map((item) => formatarData(item.data));
 
-    if(grafico !== null){
+  const valores = registros.map((item) => item.horas);
 
-        grafico.destroy();
+  grafico = new Chart(canvas, {
+    type: "bar",
 
-        grafico = null;
+    data: {
+      labels: labels,
 
-    }
+      datasets: [
+        {
+          label: "Horas Extras",
 
+          data: valores,
 
-    const labels = registros.map(item =>
-        formatarData(item.data)
-    );
-
-
-    const valores = registros.map(item =>
-        item.horas
-    );
-
-
-    grafico = new Chart(canvas, {
-
-        type:"bar",
-
-        data:{
-
-            labels:labels,
-
-            datasets:[{
-
-                label:"Horas Extras",
-
-                data:valores,
-
-                borderWidth:1
-
-            }]
-
+          borderWidth: 1,
         },
+      ],
+    },
 
-        options:{
+    options: {
+      responsive: true,
 
-            responsive:true,
-
-            maintainAspectRatio:false
-
-        }
-
-    });
-
+      maintainAspectRatio: false,
+    },
+  });
 }
 
 // ===============================
 // EXPORTAR EXCEL
 // ===============================
 
-document.getElementById("excel").onclick = function(){
+document.getElementById("excel").onclick = function () {
+  if (registros.length === 0) {
+    alert("Não existem registros para exportar.");
+    return;
+  }
 
-    if(registros.length === 0){
-        alert("Não existem registros para exportar.");
-        return;
-    }
+  const dados = registros.map((item) => ({
+    Data: formatarData(item.data),
+    Horas: item.horas,
+    Valor: item.valor,
+    Observação: item.obs || "",
+  }));
 
-    const dados = registros.map(item => ({
-        Data: formatarData(item.data),
-        Horas: item.horas,
-        Valor: item.valor,
-        Observação: item.obs || ""
-    }));
+  const planilha = XLSX.utils.json_to_sheet(dados);
 
-    const planilha = XLSX.utils.json_to_sheet(dados);
+  const arquivo = XLSX.utils.book_new();
 
-    const arquivo = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(arquivo, planilha, "Horas Extras");
 
-    XLSX.utils.book_append_sheet(
-        arquivo,
-        planilha,
-        "Horas Extras"
-    );
-
-    XLSX.writeFile(
-        arquivo,
-        "horas_extras.xlsx"
-    );
-
+  XLSX.writeFile(arquivo, "horas_extras.xlsx");
 };
-
 
 // ===============================
 // EXPORTAR PDF
 // ===============================
 
-document.getElementById("pdf").onclick = function(){
+document.getElementById("pdf").onclick = function () {
+  if (registros.length === 0) {
+    alert("Não existem registros para exportar.");
+    return;
+  }
 
-    if(registros.length === 0){
-        alert("Não existem registros para exportar.");
-        return;
-    }
+  const { jsPDF } = window.jspdf;
 
+  const pdf = new jsPDF();
 
-    const { jsPDF } = window.jspdf;
+  pdf.setFontSize(18);
 
-    const pdf = new jsPDF();
+  pdf.text("Relatório de Horas Extras", 20, 20);
 
+  let y = 40;
 
-    pdf.setFontSize(18);
+  registros.forEach((item) => {
+    pdf.setFontSize(12);
 
     pdf.text(
-        "Relatório de Horas Extras",
-        20,
-        20
+      `${formatarData(item.data)} - ${item.horas}h - ${formatarMoeda(item.valor)}`,
+      20,
+      y,
     );
 
+    y += 10;
+  });
 
-    let y = 40;
-
-
-    registros.forEach(item=>{
-
-        pdf.setFontSize(12);
-
-        pdf.text(
-            `${formatarData(item.data)} - ${item.horas}h - ${formatarMoeda(item.valor)}`,
-            20,
-            y
-        );
-
-        y += 10;
-
-    });
-
-
-    pdf.save("horas_extras.pdf");
-
-
+  pdf.save("horas_extras.pdf");
 };
-
 
 // ===============================
 // BACKUP
 // ===============================
 
-document.getElementById("backup").onclick=function(){
+document.getElementById("backup").onclick = function () {
+  const arquivo = new Blob([JSON.stringify(registros)], {
+    type: "application/json",
+  });
 
-    const arquivo = new Blob(
-        [
-            JSON.stringify(registros)
-        ],
-        {
-            type:"application/json"
-        }
-    );
+  const link = document.createElement("a");
 
+  link.href = URL.createObjectURL(arquivo);
 
-    const link=document.createElement("a");
+  link.download = "backup_horas.json";
 
-    link.href=URL.createObjectURL(arquivo);
-
-    link.download="backup_horas.json";
-
-    link.click();
-
+  link.click();
 };
-
 
 // ===============================
 // RESTAURAR
 // ===============================
 
-document.getElementById("restaurar").onclick=function(){
-
-    document.getElementById("arquivo").click();
-
+document.getElementById("restaurar").onclick = function () {
+  document.getElementById("arquivo").click();
 };
 
+document.getElementById("arquivo").onchange = function () {
+  const leitor = new FileReader();
 
-document.getElementById("arquivo").onchange=function(){
+  leitor.onload = function (e) {
+    try {
+      registros = JSON.parse(e.target.result);
 
-    const leitor=new FileReader();
+      salvarLocal();
 
+      renderizar();
 
-    leitor.onload=function(e){
+      alert("Backup restaurado com sucesso!");
+    } catch {
+      alert("Arquivo de backup inválido.");
+    }
+  };
 
-        try{
-
-            registros=JSON.parse(e.target.result);
-
-            salvarLocal();
-
-            renderizar();
-
-            alert("Backup restaurado com sucesso!");
-
-        }
-
-        catch{
-
-            alert("Arquivo de backup inválido.");
-
-        }
-
-    };
-
-
-    leitor.readAsText(this.files[0]);
-
+  leitor.readAsText(this.files[0]);
 };
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then(() => {
+        console.log("Aplicativo pronto para instalação");
+      })
+      .catch((error) => {
+        console.log("Erro no Service Worker:", error);
+      });
+  });
+}
 
 console.log("Script carregado");
 
