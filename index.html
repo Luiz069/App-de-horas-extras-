@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Horas Extras</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+<header>
+
+<h1><i class="fa-solid fa-clock"></i> Controle de Horas Extras</h1>
+
+<button id="tema">
+<i class="fa-solid fa-moon"></i>
+</button>
+
+</header>
+
+<section class="cards">
+
+<div class="card">
+<h2>Total de Horas</h2>
+<h1 id="totalHoras">0h</h1>
+</div>
+
+<div class="card">
+<h2>Total a Receber</h2>
+<h1 id="totalValor">R$ 0,00</h1>
+</div>
+
+<div class="card">
+<h2>Dias Registrados</h2>
+<h1 id="dias">0</h1>
+</div>
+
+<div class="card">
+<h2>Valor Hora Extra</h2>
+
+<input
+type="number"
+id="valorHora"
+step="0.01"
+placeholder="Ex.: 70,00">
+</div>
+
+</section>
+
+<section class="cadastro">
+
+<h2>Novo Registro</h2>
+
+<label>Data</label>
+
+<input
+type="date"
+id="data">
+
+<label>Horas Extras</label>
+
+<input
+type="number"
+step="0.5"
+id="horas"
+placeholder="Ex.: 5">
+
+<label>Observação</label>
+
+<textarea
+id="obs"
+placeholder="Opcional"></textarea>
+
+<button id="salvar">
+<i class="fa-solid fa-floppy-disk"></i>
+
+Salvar Registro
+
+</button>
+
+</section>
+
+<section class="historico">
+
+<div class="topo">
+
+<h2>Histórico</h2>
+
+<input
+type="text"
+id="pesquisa"
+placeholder="Pesquisar...">
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Data</th>
+
+<th>Horas</th>
+
+<th>Valor</th>
+
+<th>Observação</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody id="lista">
+
+</tbody>
+
+</table>
+
+</section>
+
+<section class="graficos">
+
+
+
+</section>
+
+<section class="acoes">
+
+<button id="excel">
+<i class="fa-solid fa-file-excel"></i>
+
+Excel
+
+</button>
+
+<button id="pdf">
+<i class="fa-solid fa-file-pdf"></i>
+
+PDF
+
+</button>
+
+<button id="backup">
+<i class="fa-solid fa-download"></i>
+
+Backup
+
+</button>
+
+<button id="restaurar">
+<i class="fa-solid fa-upload"></i>
+
+Restaurar
+
+</button>
+
+<input
+type="file"
+id="arquivo"
+hidden>
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
