@@ -561,12 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
-console.log("Script carregado");
-
-console.log("Excel:", typeof XLSX);
-
-console.log("PDF:", typeof window.jspdf);
-
-console.log("Botão PDF:", document.getElementById("pdf"));
-
-console.log("Botão Excel:", document.getElementById("excel"));
+console.log("Salvar:", document.getElementById("salvar"));
+console.log("Data:", document.getElementById("data"));
+console.log("Horas:", document.getElementById("horas"));
+console.log("Valor:", document.getElementById("valorHora"));
